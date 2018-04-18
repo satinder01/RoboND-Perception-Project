@@ -32,20 +32,18 @@ Image recognition pipeline:
 5. RANSAC plane segmentation in order to separate the table from the objects on it. A maximum threshold of 0.015 worked well to fit the geometric plane model. The cloud is then segmented in two parts the table (inliers) and the objects of interest (outliers). The segments are published to ROS as ``/pcl_table`` and ``/pcl_objects``. From this point onwards the objects segment of the point cloud is used for further processing.
 
 
-#### 2. Complete Exercise 2 steps: Pipeline including clustering for segmentation implemented.  
+#### 2a. Complete Exercise 2 steps: Pipeline including clustering for segmentation implemented.  
 The point cloud needs to be clustered to detect individual object.
 
 Following parameters worked for Euclidean clustering. Cluster tolerance of 0.01, min cluster 50 and max cluster 15000
 
 The clusters are colored for visualization in RViz, the corresponding ROS subject is ``/pcl_cluster``.
 
-#### 2. Complete Exercise 3 Steps.  Features extracted and SVM trained.  Object recognition implemented.
-Here is an example of how to include an image in your writeup.
+#### 2b. Complete Exercise 3 Steps.  Features extracted and SVM trained.  Object recognition implemented.
 
 ![demo-1](https://user-images.githubusercontent.com/20687560/28748231-46b5b912-7467-11e7-8778-3095172b7b19.png)
 
 To generate the training sets, I added the items from all the pick_list yaml files and then uniquified them to get one complete list 
-
 
 ```
 https://github.com/satinder01/RoboND-Perception-Project/blob/master/pr2_robot/scripts/capture_features.py
