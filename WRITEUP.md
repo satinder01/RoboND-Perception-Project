@@ -64,13 +64,15 @@ bins_range = (0,256)
 
 The accuracy achieved by doing this was
 
+```
 Features in Training Set: 80
 Invalid Features in Training set: 0
 Scores: [ 0.6875  0.875   0.8125  0.8125  0.9375]
 Accuracy: 0.82 (+/- 0.17)
 accuracy score: 0.825
+```
 
-![normalized confusion matrix][image_0] 
+![normalized confusion matrix][normalized_confusion_matrix] 
 
 
 ### Pick and Place Setup
@@ -84,18 +86,18 @@ See the file [output_1.yaml](https://github.com/satinder01/RoboND-Perception-Pro
 ![Recognized objects for scene 1.][screenshot_world_1]
 
 ###### Scene 2
-See the file [output_1.yaml](https://github.com/satinder01/RoboND-Perception-Project/blob/master/pr2_robot/output/output_2.yaml) and the screenshot below.
+See the file [output_2.yaml](https://github.com/satinder01/RoboND-Perception-Project/blob/master/pr2_robot/output/output_2.yaml) and the screenshot below.
 
 ![Recognized objects for scene 2.][screenshot_world_2]
 
 ###### Scene 3
-See the file [output_1.yaml](https://github.com/satinder01/RoboND-Perception-Project/blob/master/pr2_robot/output/output_3.yaml) and the screenshot below.
+See the file [output_3.yaml](https://github.com/satinder01/RoboND-Perception-Project/blob/master/pr2_robot/output/output_3.yaml) and the screenshot below.
 
 ![Recognized objects for scene 3.][screenshot_world_3]
 
 
 
 ### Improvement
-* The book was not identified correctly so need to work more on that to find out whether increases more poses will help or need to investigate if we need to work with extracting features other than HSV colorspace
+* The 'book' was not identified correctly so need to work more on that to find out whether increases more poses will help or need to investigate if we need to work with extracting features other than HSV colorspace
 
 * The pr2 robot was missing lifting objects most of the time. And sometime it dropped the objects when it was able to pick. Need to investigate how to make pick and place work effectively.
