@@ -222,7 +222,6 @@ def pr2_mover(object_list):
 
     # TODO: Initialize variables
     TEST_SCENE_NUM= std_msgs.msg.Int32()
-    TEST_SCENE_NUM.data = 1
     OBJECT_NAME = std_msgs.msg.String()
     WHICH_ARM = std_msgs.msg.String() # green = right, red = left
     PICK_POSE = geometry_msgs.msg.Pose()
@@ -235,6 +234,8 @@ def pr2_mover(object_list):
 
     # TODO: Get/Read parameters
     object_list_param = rospy.get_param('/object_list')
+
+    TEST_SCENE_NUM.data = 2
     rospy.loginfo('Starting pr2_mover with {} objects'.format(len(object_list)))
 
     # TODO: Parse parameters into individual variables
@@ -252,45 +253,44 @@ def pr2_mover(object_list):
                 centroids = (np.mean(points_arr, axis=0)[:3])
                 found = True
 
-    if(found):
-        # TODO: Create 'place_pose' for the object
-        PICK_POSE.position.x = float(centroids[0])
-        PICK_POSE.position.y = float(centroids[1])
-        PICK_POSE.position.z = float(centroids[2])
+        if(found):
+            # TODO: Create 'place_pose' for the object
+            PICK_POSE.position.x = float(centroids[0])
+            PICK_POSE.position.y = float(centroids[1])
+            PICK_POSE.position.z = float(centroids[2])
 
-        # TODO: Assign the arm to be used for pick_place
-        PLACE_POSE.position.x = 0.0
-        PLACE_POSE.position.z = 0.8
+            # TODO: Assign the arm to be used for pick_place
+            PLACE_POSE.position.x = 0.0
+            PLACE_POSE.position.z = 0.8
          
-        if (object_list_param[counter]['group'] == 'red'):
-            WHICH_ARM.data = 'left'
-            PLACE_POSE.position.y = 0.71
-        else:
-            WHICH_ARM.data = 'right'
-            PLACE_POSE.position.y = -0.71
+            if (object_list_param[counter]['group'] == 'red'):
+                WHICH_ARM.data = 'left'
+                PLACE_POSE.position.y = 0.71
+            else:
+                WHICH_ARM.data = 'right'
+                PLACE_POSE.position.y = -0.71
            
-        # TODO: Create a list of dictionaries (made with make_yaml_dict()) for later output to yaml format
-        yaml_dict = make_yaml_dict(TEST_SCENE_NUM,WHICH_ARM,OBJECT_NAME,PICK_POSE,PLACE_POSE)
-        output_yaml.append(yaml_dict)
+            # TODO: Create a list of dictionaries (made with make_yaml_dict()) for later output to yaml format
+            yaml_dict = make_yaml_dict(TEST_SCENE_NUM,WHICH_ARM,OBJECT_NAME,PICK_POSE,PLACE_POSE)
+            output_yaml.append(yaml_dict)
 
-        # Wait for 'pick_place_routine' service to come up
-        rospy.wait_for_service('pick_place_routine')
+            # Wait for 'pick_place_routine' service to come up
+            rospy.wait_for_service('pick_place_routine')
 
-        try:
-            pick_place_routine = rospy.ServiceProxy('pick_place_routine', PickPlace)
+            ##try:
+                ##pick_place_routine = rospy.ServiceProxy('pick_place_routine', PickPlace)
 
-            # TODO: Insert your message variables to be sent as a service request
-            resp = pick_place_routine(TEST_SCENE_NUM, OBJECT_NAME, WHICH_ARM, PICK_POSE, PLACE_POSE)
+                # TODO: Insert your message variables to be sent as a service request
+                ##resp = pick_place_routine(TEST_SCENE_NUM, OBJECT_NAME, WHICH_ARM, PICK_POSE, PLACE_POSE)
 
-            print ("Response: ",resp.success)
+                ##print ("Response: ",resp.success)
 
-        except rospy.ServiceException, e:
-            print "Service call failed: %s"%e
-    else:
-        rospy.loginfo('Can\'t find Object: {}'.format(object_list_param[counter]['name']))
-
-    counter += 1
-
+            ##except rospy.ServiceException, e:
+                ##print "Service call failed: %s"%e
+        else:
+            rospy.loginfo('Can\'t find Object: {}'.format(object_list_param[counter]['name']))
+        counter += 1
+        print "counter:",counter
     # TODO: Output your request parameters into output yaml file
     send_to_yaml("output_" + str(TEST_SCENE_NUM.data) + ".yaml", output_yaml)
 
