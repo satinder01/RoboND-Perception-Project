@@ -65,9 +65,9 @@ The accuracy achieved by doing this was
 ```
 Features in Training Set: 80
 Invalid Features in Training set: 0
-Scores: [ 0.6875  0.875   0.8125  0.8125  0.9375]
-Accuracy: 0.82 (+/- 0.17)
-accuracy score: 0.825
+Scores: [ 0.875   0.9375  0.9375  0.9375  0.875 ]
+Accuracy: 0.91 (+/- 0.06)
+accuracy score: 0.9125
 ```
 
 ![normalized confusion matrix][normalized_confusion_matrix] 
